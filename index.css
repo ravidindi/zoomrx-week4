@@ -1,0 +1,45 @@
+.time {
+  display: flex;
+  margin: 2rem 2rem 0rem 2rem;
+}
+.info {
+  display: flex;
+  margin: 2rem;
+}
+.time span {
+  margin: 1rem 1rem 0 1rem;
+  height: 20vh;
+  width: 20vh;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 7rem;
+}
+.info span {
+  margin: 0rem 1rem 0rem 0rem;
+  height: 20vh;
+  width: 20vh;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 2rem;
+}
+.hour {
+  background-color: #f7c8e0;
+}
+.minute {
+  background-color: #dfffd8;
+}
+.seconds {
+  background-color: #b4e4ff;
+}
+#meridian {
+  margin-top: 3rem;
+  font-size: 5rem;
+}
+#meridian p {
+  display: inline;
+}
+
+.day {
+  font-size: 3rem;
+  text-align: center;
+}
