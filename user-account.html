@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a href="./login/login.html" class="logout-btn">Logout</a>
+    <div class="account">
+      <h1><span id="user"></span> Account</h1>
+      <div class="balance">
+        <h2>Balance</h2>
+        <p>&#8377;<span id="balance">0</span></p>
+      </div>
+      <div class="actions">
+        <h2>Actions</h2>
+        <form id="withdrawForm">
+          <label for="withdrawAmount">Withdraw amount:</label>
+          <input
+            type="number"
+            id="withdrawAmount"
+            name="withdrawAmount"
+            min="0"
+            step="0.01"
+          />
+          <button type="submit" class="btn">Withdraw</button>
+        </form>
+        <form id="depositForm">
+          <label for="depositAmount">Deposit amount:</label>
+          <input
+            type="number"
+            id="depositAmount"
+            name="depositAmount"
+            min="0"
+            step="0.01"
+          />
+          <button type="submit" class="btn">Deposit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script>
+    const head = document.getElementById("user");
+    const balanceEl = document.getElementById("balance");
+    const withdrawForm = document.getElementById("withdrawForm");
+    const withdrawAmountInput = document.getElementById("withdrawAmount");
+    const depositForm = document.getElementById("depositForm");
+    const depositAmountInput = document.getElementById("depositAmount");
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    console.log(head);
+    head.textContent = user._username;
+
+    function updateUi() {
+      balanceEl.textContent = user._balance;
+    }
+
+    function updateBalance(amount) {
+      user._balance = user._balance + amount;
+      if (amount !== 0.0) {
+        localStorage.setItem("currentUser", JSON.stringify(user));
+      }
+      updateUi();
+      find_and_update(user);
+    }
+    updateUi();
+    withdrawForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const amount = parseFloat(withdrawAmountInput.value);
+      if (amount > parseFloat(balanceEl.textContent)) {
+        alert("Insufficient funds!");
+        return;
+      }
+      updateBalance(-amount);
+      withdrawAmountInput.value = "";
+    });
+
+    depositForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const amount = parseFloat(depositAmountInput.value);
+      updateBalance(amount);
+      depositAmountInput.value = "";
+    });
+  </script>
+  <script src="./index.js"></script>
+</html>

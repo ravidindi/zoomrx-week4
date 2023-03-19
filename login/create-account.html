@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Account Page</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Banking Application</h1>
+      </header>
+      <section>
+        <h2>Create Account</h2>
+        <form id="myForm">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+          <label for="account-type">Account Type</label>
+          <select id="account-type" name="account-type">
+            <option value="savings">Savings</option>
+            <option value="current">Current</option>
+          </select>
+          <button type="submit" class="btn">Create Account</button>
+        </form>
+        <p>Already have an account? <a href="./login.html">Login</a></p>
+      </section>
+    </div>
+  </body>
+  <script>
+    const form = document.getElementById("myForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      let newUser = new BankAccount(
+        formData.get("account-type"),
+        formData.get("name"),
+        formData.get("email"),
+        formData.get("password")
+      );
+      let msg = verifyUser(
+        newUser._email,
+        newUser._password,
+        newUser._accountType
+      );
+      if (msg === "User Not Found") {
+        addUser(newUser);
+        form.reset();
+        alert("Account creation successful!, Please login");
+      } else {
+        alert("User exists!");
+      }
+    });
+  </script>
+  <script src="../index.js"></script>
+</html>
