@@ -38,7 +38,7 @@
         formData.get("account-type"),
         formData.get("name"),
         formData.get("email"),
-        formData.get("password")
+        hashPassword(formData.get("password"))
       );
       let msg = verifyUser(
         newUser._email,
@@ -49,6 +49,7 @@
         addUser(newUser);
         form.reset();
         alert("Account creation successful!, Please login");
+        window.location.href = "/login/login.html";
       } else {
         alert("User exists!");
       }

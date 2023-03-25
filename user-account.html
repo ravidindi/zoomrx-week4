@@ -8,12 +8,16 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <a href="./login/login.html" class="logout-btn">Logout</a>
+    <a onclick="logout()" class="logout-btn">Logout</a>
     <div class="account">
       <h1><span id="user"></span> Account</h1>
       <div class="balance">
         <h2>Balance</h2>
         <p>&#8377;<span id="balance">0</span></p>
+      </div>
+      <div class="balance">
+        <h2>Account-Type</h2>
+        <p id="accountType"></p>
       </div>
       <div class="actions">
         <h2>Actions</h2>
@@ -49,14 +53,20 @@
     const withdrawAmountInput = document.getElementById("withdrawAmount");
     const depositForm = document.getElementById("depositForm");
     const depositAmountInput = document.getElementById("depositAmount");
+    const accountTypeInput = document.getElementById("accountType");
     const user = JSON.parse(localStorage.getItem("currentUser"));
     console.log(head);
     head.textContent = user._username;
 
     function updateUi() {
+      accountTypeInput.textContent =
+        user._accountType.charAt(0).toUpperCase() + user._accountType.slice(1);
       balanceEl.textContent = user._balance;
     }
-
+    function logout() {
+      localStorage.removeItem("currentUser");
+      window.location.href = "/login/login.html";
+    }
     function updateBalance(amount) {
       user._balance = user._balance + amount;
       if (amount !== 0.0) {

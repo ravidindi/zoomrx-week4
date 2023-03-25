@@ -219,3 +219,7 @@ p {
 #user {
   color: blue;
 }
+#accountType {
+  color: blue;
+  font-size: 2rem;
+}

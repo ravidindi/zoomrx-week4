@@ -45,6 +45,13 @@ class BankAccount {
     this._password = password;
   }
 }
+urlString = window.location.href.split("/");
+if (
+  urlString[urlString.length - 1] !== "user-account.html" &&
+  localStorage.getItem("currentUser") !== null
+) {
+  window.location.href = "/user-account.html";
+}
 let Bankacc = [];
 if (localStorage.getItem("myUsers") !== null)
   Bankacc = JSON.parse(localStorage.getItem("myUsers"));
@@ -55,7 +62,18 @@ function addUser(newUser) {
   localStorage.setItem("myUsers", JSON.stringify(Bankacc));
   console.log(Bankacc);
 }
-
+function hashPassword(password) {
+  let hash = 0;
+  if (password.length == 0) {
+    return hash.toString();
+  }
+  for (let i = 0; i < password.length; i++) {
+    let char = password.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash;
+  }
+  return hash.toString();
+}
 function verifyUser(email, password, accountType) {
   for (let i = 0; i < Bankacc.length; i++) {
     if (

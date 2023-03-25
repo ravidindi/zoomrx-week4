@@ -37,7 +37,7 @@
       const formData = new FormData(form1);
       let msg = verifyUser(
         formData.get("email"),
-        formData.get("password"),
+        hashPassword(formData.get("password")),
         formData.get("account-type")
       );
       if (msg === "True") {
